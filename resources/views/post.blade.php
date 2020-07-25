@@ -61,7 +61,7 @@
 
                                 {!! html_entity_decode($post->body) !!}
                             </div>
-
+                            <h5>RELATED TAGS:</h5>
 							<ul class="tags">
 								@foreach ($post->tags as $tag)
                                    <li><a href="{{ route('tag.posts',$tag->slug) }}">{{ $tag->name }}</a></li>
@@ -135,53 +135,7 @@
 	</section><!-- post-area -->
 
 
-	<section class="recomended-area section">
-		<div class="container">
-			<div class="row">
 
-				@foreach ($randomPosts as $randomPost)
-                    <div class="col-lg-4 col-md-6">
-					<div class="card h-100">
-						<div class="single-post post-style-1">
-
-							<div class="blog-image" ><img src="{{ asset('public/storage/post/'.$randomPost->image) }}" alt="{{ $randomPost->title }}"></div>
-
-							<a class="avatar" href="{{ route('author.profile',$post->user->username) }}"><img src="{{ asset('public/storage/profile/'.$randomPost->user->image) }}" alt="Profile Image"></a>
-
-							<div class="blog-info">
-
-								<h4 class="title"><a href="{{ route('post.details',$randomPost->slug) }}"><b>{{ $randomPost->title }}</b></a></h4>
-
-								<ul class="post-footer">
-									<li>
-                                        @guest
-                                            <a href="javascript:void(0);" onclick="toastr.info('You need login first to add this post at favorite list','Info',{
-                                                closeButton:true,
-                                                progressBar:true,
-                                            })"><i class="ion-heart"></i>{{ $randomPost->favoritePostUser->count() }}</a>
-                                            @else
-                                             <a href="javascript:void(0);" onclick = "document.getElementById('favorite-form-{{ $randomPost->id }}').submit(); " class="{{ !Auth::user()->userFavoritePost()->where('post_id',$randomPost->id)->count() == 0 ? 'favoritePost' : '' }}"><i class="ion-heart"></i>{{ $randomPost->favoritePostUser->count() }}</a>
-
-                                             <form id="favorite-form-{{ $randomPost->id }}" method="POST" action="{{ route('post.favorite',$randomPost->id) }}" style="display: none;">
-                                            @csrf
-                                            </form>
-
-                                        @endguest
-
-                                    </li>
-									<li><a href="#"><i class="ion-chatbubble"></i>{{ $randomPost->comments->count() }}</a></li>
-									<li><a href="#"><i class="ion-eye"></i>{{ $randomPost->view_count }}</a></li>
-								</ul>
-
-							</div><!-- blog-info -->
-						</div><!-- single-post -->
-					</div><!-- card -->
-				</div><!-- col-lg-4 col-md-6 -->
-                @endforeach
-			</div><!-- row -->
-
-		</div><!-- container -->
-	</section>
 
 	<section class="comment-section">
 		<div class="container">
@@ -243,6 +197,54 @@
                     @endif
 				</div><!-- col-lg-8 col-md-12 -->
 
+			</div><!-- row -->
+
+		</div><!-- container -->
+    </section>
+    <section class="recomended-area section">
+		<div class="container">
+            <h3>RELATED POSTS</h3>
+			<div class="row">
+
+				@foreach ($randomPosts as $randomPost)
+                    <div class="col-lg-4 col-md-6">
+					<div class="card h-100">
+						<div class="single-post post-style-1">
+
+							<div class="blog-image" ><img src="{{ asset('public/storage/post/'.$randomPost->image) }}" alt="{{ $randomPost->title }}"></div>
+
+							<a class="avatar" href="{{ route('author.profile',$post->user->username) }}"><img src="{{ asset('public/storage/profile/'.$randomPost->user->image) }}" alt="Profile Image"></a>
+
+							<div class="blog-info">
+
+								<h4 class="title"><a href="{{ route('post.details',$randomPost->slug) }}"><b>{{ $randomPost->title }}</b></a></h4>
+
+								<ul class="post-footer">
+									<li>
+                                        @guest
+                                            <a href="javascript:void(0);" onclick="toastr.info('You need login first to add this post at favorite list','Info',{
+                                                closeButton:true,
+                                                progressBar:true,
+                                            })"><i class="ion-heart"></i>{{ $randomPost->favoritePostUser->count() }}</a>
+                                            @else
+                                             <a href="javascript:void(0);" onclick = "document.getElementById('favorite-form-{{ $randomPost->id }}').submit(); " class="{{ !Auth::user()->userFavoritePost()->where('post_id',$randomPost->id)->count() == 0 ? 'favoritePost' : '' }}"><i class="ion-heart"></i>{{ $randomPost->favoritePostUser->count() }}</a>
+
+                                             <form id="favorite-form-{{ $randomPost->id }}" method="POST" action="{{ route('post.favorite',$randomPost->id) }}" style="display: none;">
+                                            @csrf
+                                            </form>
+
+                                        @endguest
+
+                                    </li>
+									<li><a href="#"><i class="ion-chatbubble"></i>{{ $randomPost->comments->count() }}</a></li>
+									<li><a href="#"><i class="ion-eye"></i>{{ $randomPost->view_count }}</a></li>
+								</ul>
+
+							</div><!-- blog-info -->
+						</div><!-- single-post -->
+					</div><!-- card -->
+				</div><!-- col-lg-4 col-md-6 -->
+                @endforeach
 			</div><!-- row -->
 
 		</div><!-- container -->

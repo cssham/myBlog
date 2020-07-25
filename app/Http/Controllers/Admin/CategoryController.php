@@ -58,15 +58,17 @@ class CategoryController extends Controller
                 mkdir('public/storage/category/',0777,true);
             }
             //resize image for category
-            $category = Image::make($image)->resize(1600,479)->save($imageName);
-            $category->move('public/storage/category/',$imageName);
+            $categoryImage = Image::make($image)->resize(1600,479);
+            $uploadPath = public_path()."/storage/category/";
+            $categoryImage->save($uploadPath.$imageName);
             //check category slider directory exists
            if(!file_exists('public/storage/category/slider/')) {
                 mkdir('public/storage/category/slider/',0777,true);
             }
             //resize image for category slider
-            $slider = Image::make($image)->resize(500, 333)->save($imageName);
-            $slider->move('public/storage/category/',$imageName);
+            $sliderImage = Image::make($image)->resize(500, 333);
+            $uploadPath = public_path()."/storage/category/slider/";
+            $sliderImage->save($uploadPath.$imageName);
         }else
         {
             $imageName = 'default.png';
@@ -134,8 +136,9 @@ class CategoryController extends Controller
                     ->image);
             }
             //resize image for category
-            $categoryName = Image::make($image)->resize(1600, 479)->save($imageName);
-            $categoryName->move('public/storage/category/',$imageName);
+            $sliderImage = Image::make($image)->resize(1600,479);
+            $uploadPath = public_path()."/storage/category/";
+            $sliderImage->save($uploadPath.$imageName);
             //check category slider directory exists
             //check category directory exists
            if(!file_exists('public/storage/category/slider/')) {
@@ -147,8 +150,9 @@ class CategoryController extends Controller
                     ->image);
             }
             //resize image for category
-            $slider = Image::make($image)->resize(500, 333)->save($imageName);
-            $slider->move('public/storage/category/slider/',$imageName);
+            $sliderImage = Image::make($image)->resize(500, 333);
+            $uploadPath = public_path()."/storage/category/slider/";
+            $sliderImage->save($uploadPath.$imageName);
         } else {
             $imageName = $category->image;
         }

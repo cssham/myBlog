@@ -81,7 +81,7 @@
                             <i class="material-icons">account_circle</i>
                         </div>
                         <div class="content">
-                            <div class="text">TOTAL AUTHORs</div>
+                            <div class="text">TOTAL AUTHORS</div>
                             <div class="number count-to" data-from="0" data-to="{{ $totalAuthors}}" data-speed="15" data-fresh-interval="20"></div>
                         </div>
                     </div>

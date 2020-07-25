@@ -33,12 +33,13 @@ class SettingsController extends Controller
                 mkdir('public/storage/profile/',0777,true);
             }
             //delete old image
-              if(file_exists('public/storage/post/'.$user->image)) {
-                unlink('public/storage/post/' . $user
+               if(file_exists('public/storage/profile/'.$user->image)) {
+                unlink('public/storage/profile/'. $user
                     ->image);
             }
-            $profileImage = Image::make($image)->resize(500,500)->save($imageName);
-            $profileImage->move('public/storage/post/',$imageName);
+            $profileImage = Image::make($image)->resize(500,500);
+            $uploadPath = public_path()."/storage/profile/";
+            $profileImage->save($uploadPath.$imageName);
         }else{
             $imageName = $user->image;
         }

@@ -70,9 +70,10 @@ class PostController extends Controller
                 mkdir('public/storage/post/',0777,true);
             }
             //resize image
-            $postImage = Image::make($image)->resize(1600,1066)->save($imageName);
-            //put image in directory
-            $postImage->move('public/storage/post/',$imageName);
+            $postImage = Image::make($image)->resize(1600,1066);
+            $uploadPath =public_path()."/storage/post/";
+            //save image in directory
+            $postImage->save($uploadPath.$imageName);
         }else{
             $imageName ='default.png';
         }
@@ -156,9 +157,10 @@ class PostController extends Controller
                     ->image);
             }
             //resize image
-            $postImage = Image::make($image)->resize(1600, 1066)->save($imageName);
-            //put image in directory
-            $postImage->move('public/storage/post/',$imageName);
+            $postImage = Image::make($image)->resize(1600,1066);
+            $uploadPath =public_path()."/storage/post/";
+            //save image in directory
+            $postImage->save($uploadPath.$imageName);
         } else {
             $imageName = $post->image;
         }
